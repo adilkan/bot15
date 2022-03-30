@@ -19,7 +19,7 @@ async def on_startup(_):
 
 client.register_handlers_client(db)
 callback.register_handler_callback(db)
-inline.reqister()
+inline.reqister(db)
 extra.register_handlers_extra(db)
 hw_notification.register_notification(db)
 
