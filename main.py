@@ -17,9 +17,9 @@ async def on_startup(_):
     asyncio.create_task(schedukler())
     asyncio.create_task(remind())
 
+inline.reqister(db)
 client.register_handlers_client(db)
 callback.register_handler_callback(db)
-inline.reqister(db)
 extra.register_handlers_extra(db)
 hw_notification.register_notification(db)
 
