@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-URL = "https://rt.potnhub.com/"
+URL = "https://rt.potnhub.com"
 
 HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -22,11 +22,12 @@ def get_data(html):
     for item in items:
         anime.append(
             {
-                "title": URL + item.find('div', class_="thumbnail-info-wrapper clearfix").get_text(),
+                "title": URL + str(item.find('a', class_="").get('href')),
                 'image': URL + item.find('div', class_='phimage').find('img').get('src')
             }
         )
     return anime
+    print(tem.find('span', class_="title").get('href'))
 
 
 def parser():
