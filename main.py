@@ -1,10 +1,11 @@
 import asyncio
 from aiogram import executor
-from bot_instance import db
+from bot_instance import db,bot
 from handers import client,callback, extra ,hw_notification,inline
 from data_base import bot_db
 from handers.notification import schedukler
 from handers.hw_notification import remind
+from decouple import config
 
 
 
@@ -17,6 +18,9 @@ async def on_startup(_):
     asyncio.create_task(schedukler())
     asyncio.create_task(remind())
 
+async def on_shutdown(db):
+    await bot.delete_webhook()
+
 client.register_handlers_client(db)
 callback.register_handler_callback(db)
 inline.register_handlers_inline(db)
@@ -27,4 +31,13 @@ hw_notification.register_notification(db)
 
 
 if __name__ == '__main__':
-    executor.start_polling(db,skip_updates=False,on_startup=on_startup)
+    # executor.start_polling(db,skip_updates=False,on_startup=on_startup)
+    executor.start_webhook(
+        dispatcher=db,
+        webhook_path='',
+        on_startup=on_startup,
+        on_shutdown=on_shutdown,
+        skip_updates=True,
+        host='0.0.0.0',
+        port=int(config('PORT',default=5000)),
+    )
