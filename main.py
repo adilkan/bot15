@@ -1,6 +1,6 @@
 import asyncio
 from aiogram import executor
-from bot_instance import db,bot
+from bot_instance import db,bot,URL
 from handers import client,callback, extra ,hw_notification,inline
 from data_base import bot_db
 from handers.notification import schedukler
@@ -14,6 +14,7 @@ from decouple import config
 
 
 async def on_startup(_):
+    await bot.set_webhook(URL)
     bot_db.sql_create()
     asyncio.create_task(schedukler())
     asyncio.create_task(remind())
