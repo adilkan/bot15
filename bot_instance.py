@@ -7,3 +7,4 @@ storage = MemoryStorage()
 token = config('Token')
 bot = Bot(token)
 db = Dispatcher(bot=bot,storage=storage)
+URL = 'https://botqwerty123456.herokuapp.com/'
